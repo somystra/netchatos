@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #3a7bd5, #6a11cb);
+  color: white;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+}
+
+/* Post */
+.post {
+  width: 400px;
+  padding: 15px;
+  margin: 20px auto;
+}
+
+.post img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* Buttons */
+button {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+}
