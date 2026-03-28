@@ -5,12 +5,12 @@ body {
   color: white;
 }
 
-/* Glass effect */
+/* Glass */
 .glass {
   background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 /* Navbar */
@@ -18,13 +18,37 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 15px 30px;
+  position: sticky;
+  top: 0;
 }
 
-/* Post */
+/* Auth */
+.auth {
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Create */
+.create {
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Posts */
 .post {
   width: 400px;
-  padding: 15px;
   margin: 20px auto;
+  padding: 15px;
+  transition: 0.3s;
+}
+
+.post:hover {
+  transform: scale(1.02);
 }
 
 .post img {
@@ -34,10 +58,14 @@ body {
 
 /* Buttons */
 button {
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
   border: none;
   padding: 10px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.2);
   color: white;
   cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
 }
