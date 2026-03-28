@@ -3,41 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NetChat Pro</title>
+<title>NetChat Ultra</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar glass">
   <h2>NetChat</h2>
   <div>
-    <button onclick="googleLogin()">Google</button>
-    <button onclick="logout()">Logout</button>
+    <button id="googleBtn">Google</button>
+    <button id="logoutBtn">Logout</button>
   </div>
 </div>
 
-<!-- AUTH -->
 <div class="auth glass">
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-
-  <button onclick="register()">Register</button>
-  <button onclick="login()">Login</button>
+  <button id="registerBtn">Register</button>
+  <button id="loginBtn">Login</button>
 </div>
 
-<!-- POST CREATE -->
 <div class="create glass">
-  <input id="postText" placeholder="What's on your mind?">
+  <input id="postText" placeholder="Post yozing...">
   <input type="file" id="imageInput">
-  <button onclick="addPost()">Post</button>
+  <button id="postBtn">Post</button>
 </div>
 
-<!-- POSTS -->
 <div id="posts"></div>
 
 <script type="module" src="app.js"></script>
-
 </body>
 </html>
