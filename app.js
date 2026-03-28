@@ -22,78 +22,76 @@ import {
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-const provider = new GoogleAuthProvider();
+// ELEMENTLAR
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const postText = document.getElementById("postText");
+const imageInput = document.getElementById("imageInput");
 
-// GOOGLE LOGIN
-window.googleLogin = async () => {
+// BUTTONLAR
+document.getElementById("registerBtn").onclick = async () => {
+  await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+  alert("Account created!");
+};
+
+document.getElementById("loginBtn").onclick = async () => {
+  await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+  alert("Logged in!");
+};
+
+document.getElementById("googleBtn").onclick = async () => {
+  const provider = new GoogleAuthProvider();
   await signInWithPopup(auth, provider);
-  alert("Google login success!");
 };
 
-// EMAIL REGISTER
-window.register = async () => {
-  let email = email.value;
-  let password = password.value;
-  await createUserWithEmailAndPassword(auth, email, password);
-};
+document.getElementById("logoutBtn").onclick = () => signOut(auth);
 
-// LOGIN
-window.login = async () => {
-  let email = email.value;
-  let password = password.value;
-  await signInWithEmailAndPassword(auth, email, password);
-};
-
-// LOGOUT
-window.logout = () => signOut(auth);
-
-// ADD POST
-window.addPost = async () => {
-  let text = postText.value;
-  let file = document.getElementById("imageInput").files[0];
-
+// POST QO‘SHISH
+document.getElementById("postBtn").onclick = async () => {
+  let file = imageInput.files[0];
   let imageUrl = "";
 
   if (file) {
-    let storageRef = ref(storage, "images/" + file.name);
+    let storageRef = ref(storage, "images/" + Date.now());
     await uploadBytes(storageRef, file);
     imageUrl = await getDownloadURL(storageRef);
   }
 
   await addDoc(collection(db, "posts"), {
-    text,
+    text: postText.value,
     imageUrl,
     likes: 0,
-    user: auth.currentUser.email,
+    user: auth.currentUser?.email || "anon",
     time: Date.now()
   });
+
+  postText.value = "";
 };
 
-// REALTIME POSTS
+// REALTIME POSTLAR
 onSnapshot(collection(db, "posts"), (snapshot) => {
-  let postsDiv = document.getElementById("posts");
+  const postsDiv = document.getElementById("posts");
   postsDiv.innerHTML = "";
 
   snapshot.forEach(docSnap => {
     let post = docSnap.data();
 
-    postsDiv.innerHTML += `
-      <div class="post glass">
-        <h4>${post.user}</h4>
-        <p>${post.text}</p>
-        ${post.imageUrl ? `<img src="${post.imageUrl}">` : ""}
-        <button onclick="likePost('${docSnap.id}', ${post.likes})">
-          ❤️ ${post.likes}
-        </button>
-      </div>
+    let div = document.createElement("div");
+    div.className = "post glass";
+
+    div.innerHTML = `
+      <h4>${post.user}</h4>
+      <p>${post.text}</p>
+      ${post.imageUrl ? `<img src="${post.imageUrl}">` : ""}
+      <button class="likeBtn">❤️ ${post.likes}</button>
     `;
+
+    div.querySelector(".likeBtn").onclick = async () => {
+      await updateDoc(doc(db, "posts", docSnap.id), {
+        likes: post.likes + 1
+      });
+    };
+
+    postsDiv.appendChild(div);
   });
 });
-
-// LIKE
-window.likePost = async (id, likes) => {
-  let postRef = doc(db, "posts", id);
-  await updateDoc(postRef, {
-    likes: likes + 1
-  });
-};
