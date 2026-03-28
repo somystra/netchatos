@@ -2,29 +2,39 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<title>NetChat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetChat Pro</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="loadPosts()">
+<body>
 
+<!-- NAVBAR -->
 <div class="navbar glass">
   <h2>NetChat</h2>
+  <div>
+    <button onclick="googleLogin()">Google</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 </div>
 
-<div class="glass" style="padding:20px; width:300px; margin:auto;">
-  <input id="email" placeholder="Email"><br><br>
-  <input id="password" type="password" placeholder="Password"><br><br>
+<!-- AUTH -->
+<div class="auth glass">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
 
   <button onclick="register()">Register</button>
   <button onclick="login()">Login</button>
 </div>
 
-<div class="glass" style="padding:20px; width:400px; margin:20px auto;">
-  <input id="postText" placeholder="Write something...">
+<!-- POST CREATE -->
+<div class="create glass">
+  <input id="postText" placeholder="What's on your mind?">
+  <input type="file" id="imageInput">
   <button onclick="addPost()">Post</button>
 </div>
 
+<!-- POSTS -->
 <div id="posts"></div>
 
 <script type="module" src="app.js"></script>
